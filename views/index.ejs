@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NodeJS Weather</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="app" style="background-image: url(/images/background/<%=state.background%>.png)">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center text-white mt-5 mb-4">
+                    <h1>Weather</h1>
+                    <p>Helps you find weather conditions in cities.</p>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-inline col-lg-12 mb-5 d-flex justify-content-center" method="post">
+                    <input type="text" class="form-control col-lg-4 col-md-12 m-1 border-0 shadow" name="city"
+                        placeholder="City" required />
+                    <button type="submit" class="btn btn-outline-light col-lg-2 col-md-12 m-1 shadow">Get
+                        Weather</button>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center text-uppercase text-white">
+                        <% if (state.error) { %>
+                        <div class="alert alert-danger shadow border-0" role="alert">
+                            <%= state.error %>
+                        </div>
+                        <% } %>
+
+                        <% if (state.date) { %>
+                        <p class="date"><%= Date(state.date) %></p>
+                        <% } %>
+
+                        <% if (state.name && state.country) { %>
+                        <h2 class="location"><%= state.name,  state.country %>
+                        </h2>
+                        <% } %>
+
+                        <% if (state.weather.icon) { %>
+                        <div>
+                            <img src="/images/icon/<%=state.weather.icon%>.png" alt="" class="icon my-4">
+                        </div>
+                        <% } %>
+
+                        <% if (state.main.temp) { %>
+                        <h1 class="temp display-4"><%= state.main.temp.toFixed(0) %>°C</h1>
+                        <% } %>
+
+                        <% if (state.main.temp_min && state.main.temp_max) { %>
+                        <p class="limit">
+                            H
+                            <%= state.main.temp_max %>°
+                            - L
+                            <%= state.main.temp_min %>°
+                        </p>
+                        <% } %>
+
+                        <% if (state.weather.description) { %>
+                        <p class="description"><%= state.weather.description %></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck my-4">
+                <% if (state.wind.speed) { %>
+                <div class="col-sm-3">
+                    <div class="card rounded shadow border-0 text-center text-dark">
+                        <div class="card-body">
+                            <p class="card-title">Wind</p>
+                            <p><%= state.wind.speed %> mph</p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (state.main.humidity) { %>
+                <div class="col-sm-3">
+                    <div class="card rounded shadow border-0 text-center text-dark">
+                        <div class="card-body">
+                            <p class="card-title">Humidity</p>
+                            <p><%= state.main.humidity %>%</p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (state.clouds) { %>
+                <div class="col-sm-3">
+                    <div class="card rounded shadow border-0 text-center text-dark">
+                        <div class="card-body">
+                            <p class="card-title">Clouds</p>
+                            <p><%= state.clouds %> km/h</p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (state.main.pressure) { %>
+                <div class="col-sm-3">
+                    <div class="card rounded shadow border-0 text-center text-dark">
+                        <div class="card-body">
+                            <p class="card-title">Pressure</p>
+                            <p><%= state.main.pressure %> in</p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
